@@ -1,0 +1,283 @@
+/* Atur ulang default browser nya disini */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0d1a2f; /* Background gelap biar makin dark, aseekkk */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            perspective: 1000px; /* untuk efek 3D disini */
+        }
+
+        /* Container untuk Kartu nya */
+        .card-container {
+            width: 300px; /* Lebar kartu */
+            height: 500px; /* Tinggi kartu */
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        /* Efek Flip biar makin kaciw */
+        .card-container.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .business-card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+
+        /* Sisi Depan dan Belakang nya disini */
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; 
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e3a5f 0%, #0d1a2f 100%); 
+            border: 1px solid #00ffcc; 
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+            overflow: hidden; /* Penting agar garis scanner tidak keluar kartu okeee */
+        }
+
+        /* --- Tampilan Sisi DEPAN disini yaa --- */
+        .card-front {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around; 
+            align-items: center;
+            position: relative; /* Diperlukan untuk scanner-line absolute nya guys */
+        }
+        
+        /* --- SCANNER LINE NEON (Garis Pindai) disini --- */
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px; /* Ketebalan garisnya ini */
+            background: linear-gradient(90deg, transparent, #00ffcc, transparent);
+            box-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+            animation: scan 4s infinite linear; /* Animasi bergerak dari atas ke bawah disini atur sesuka kalian */
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateY(0); 
+            }
+            100% {
+                transform: translateY(500px); 
+            }
+        }
+        
+        /* --- LOGO HACKER GLITCH  by: Mister_L --- */
+        .hacker-logo {
+            font-family: 'Courier New', monospace; 
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ffcc;
+            position: relative;
+            text-shadow: 0 0 5px #00ffcc;
+            animation: flicker 1s infinite alternate; 
+            z-index: 10; 
+        }
+
+        .hacker-logo span {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Pseudo-element untuk efek glitch ubah semau kalian */
+        .hacker-logo span::before,
+        .hacker-logo span::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #ff0077; /* Warna glitch nya ini disini yakk */
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .hacker-logo span::before {
+            left: 2px;
+            text-shadow: -2px 0 #0077ff;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .hacker-logo span::after {
+            left: -2px;
+            text-shadow: 2px 0 #ff0077;
+            animation: glitch-anim-2 3s infinite linear alternate;
+        }
+
+        /* Keyframes Glitch 1: Pergeseran horizontal acak, biar ngga sepi guys */
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(44px, 450px, 58px, 0); transform: skew(0.5deg); }
+            100% { clip: rect(50px, 450px, 70px, 0); transform: skew(0deg); }
+        }
+
+        /* Keyframes Glitch 2: Pergeseran vertikal acak, biar kece */
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(80px, 450px, 10px, 0); transform: skew(-1deg); }
+            100% { clip: rect(10px, 450px, 100px, 0); transform: skew(0deg); }
+        }
+
+        /* Keyframes Flicker (kedip-kedip) kalcerr guysss */
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .card-front h1 {
+            font-size: 32px;
+            color: #00ffcc;
+            text-shadow: 0 0 5px #00ffcc;
+            letter-spacing: 2px;
+            z-index: 10;
+        }
+
+        .security-info {
+            font-size: 14px;
+            color: #00ffcc;
+            z-index: 10;
+        }
+
+        .security-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        /* --- Tampilan Sisi BELAKANG ada dsini --- */
+        .card-back {
+            transform: rotateY(180deg); 
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 15px; 
+            background-color: #0d1a2f;
+        }
+
+        /* --- STYLE FOTO PROFIL disini ubah semaunya aja, okii --- */
+        .profile-picture {
+            text-align: center; 
+            margin-bottom: 10px;
+        }
+
+        .profile-picture img {
+            width: 120px; 
+            height: 120px;
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid #00ffcc; 
+            box-shadow: 0 0 10px #00ffcc; 
+            transition: transform 0.3s;
+        }
+
+        .profile-picture img:hover {
+            transform: scale(1.05); 
+        }
+
+        /* --- HEADER DAN KONTAK disini kalian tinggal ubah aja guys --- */
+        .info-header {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .card-back h2 {
+            font-size: 30px;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .card-back .title {
+            color: #00ffcc;
+            font-size: 16px;
+        }
+
+        .contact-details {
+            margin-top: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .contact-icon {
+            color: #00ffcc;
+            font-size: 18px;
+            width: 25px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #00ffcc;
+            text-shadow: 0 0 3px #00ffcc;
+        }
+
+        /* --- ANIMASI GEMBOK disini juga guys --- */
+
+        .lock-animation-container {
+            text-align: center;
+            margin-top: auto; 
+            padding-top: 20px;
+        }
+
+        .lock-icon {
+            font-size: 48px;
+            color: #00ffcc;
+            animation: lockAnimation 3s infinite alternate, neonGlow 3s infinite alternate;
+        }
+
+        /* Keyframes untuk Animasi Gembok juga saya taruh sini */
+        @keyframes lockAnimation {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Keyframes untuk Efek Neon Glow disini yaa pak */
+        @keyframes neonGlow {
+            from {
+                text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+            }
+            to {
+                text-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc, 0 0 40px #00ffcc;
+            }
+        }
